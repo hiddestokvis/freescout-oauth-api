@@ -1,0 +1,29 @@
+# Disposable FreeScout + MariaDB for the integration tests.
+#
+#   APIWEBHOOKS_PATH=/path/to/Modules/ApiWebhooks docker compose up -d --build
+#
+# The API & Webhooks module is a paid FreeScout module and is not part of
+# this repository: point APIWEBHOOKS_PATH at your copy.
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_DATABASE: freescout
+      MARIADB_USER: freescout
+      MARIADB_PASSWORD: freescout
+      MARIADB_ROOT_PASSWORD: root
+    tmpfs:
+      - /var/lib/mysql
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      HOST_PORT: "${HOST_PORT:-8088}"
+    ports:
+      - "${HOST_PORT:-8088}:80"
+    volumes:
+      - "${APIWEBHOOKS_PATH:?Set APIWEBHOOKS_PATH to your copy of Modules/ApiWebhooks}:/modules-src/ApiWebhooks:ro"
+      - "../../OAuthApi:/modules-src/OAuthApi:ro"
+      - "./:/tests:ro"

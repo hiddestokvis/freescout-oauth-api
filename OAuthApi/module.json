@@ -1,0 +1,20 @@
+{
+  "name": "OAuth API",
+  "alias": "oauthapi",
+  "description": "Connect applications to the API & Webhooks module with OAuth 2.0. Each application acts as the user who authorized it, and can only reach what that user can reach in FreeScout.",
+  "version": "0.1.0",
+  "detailsUrl": "https://github.com/hiddestokvis/freescout-oauth-api",
+  "author": "Hidde Stokvis",
+  "authorUrl": "",
+  "requiredAppVersion": "1.8.198",
+  "license": "AGPL-3.0",
+  "keywords": ["api", "oauth", "webhooks", "security"],
+  "active": 0,
+  "order": 0,
+  "providers": [
+    "Modules\\OAuthApi\\Providers\\OAuthApiServiceProvider"
+  ],
+  "aliases": {},
+  "files": ["start.php"],
+  "requires": ["apiwebhooks"]
+}
